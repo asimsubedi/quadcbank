@@ -17,6 +17,7 @@ public class CustomerController {
 	public String login() {
 		
 		return "login";
+		
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -16,13 +17,14 @@ import org.springframework.web.servlet.view.JstlView;
  * @author AsimSubedi
  *
  */
+@SuppressWarnings("deprecation")
 @Configuration
-@ComponentScan(basePackages = { "com.nivtek" })
+@ComponentScan(basePackages = { "com.nivtek.quadcbank.controller" })
 @EnableWebMvc
-public class SpringWebConfig {
+public class SpringWebConfig extends WebMvcConfigurerAdapter{
 
 	// Resource Handlers for static contents like css, js
-	public void addResourceaHandlers(ResourceHandlerRegistry registry) {
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
 		registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
 

@@ -1,31 +1,28 @@
-<%@ page language="java" isELIgnored="false"
-	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Welcome to QuadCBAnk</title>
+<jsp:include page="common/header.jsp"/>
+<jsp:include page="common/nav.jsp"/>
 
-<link href="<c:url value="/assets/css/bootstrap-4.3.1.min.css" />"
-	rel="stylesheet">
-</head>
-<body>
-
-	
-	
-	<footer class="footer" style="margin-top: 50px; padding: 30px 10px;">
-		<div class="container">
-			<hr class="my-4" />
-			<span class="text-muted">&copy; Copyright 2020.
-				QuadCBank | All Rights Reserved</span>
+	<!-- BODY STARTS HERE -->
+	<div class="container" style="margin-top: 40px">
+		<div class="row">
+			<div class="col-sm-4">
+				<form action="login" method="post">
+					<div class="form-group">
+						<label for="email">Email address</label> <input
+							type="email" class="form-control" id="email"
+							aria-describedby="emailHelp" placeholder="Enter email"> <small
+							id="emailHelp" class="form-text text-muted">We'll never
+							share your email with anyone else.</small>
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label> <input
+							type="password" class="form-control" id="password"
+							placeholder="Password">
+					</div>
+					<button type="submit" class="btn btn-primary">LOGIN &rarr;</button>
+				</form>
+			</div>
 		</div>
-	</footer>
+	</div>
+	<!-- /BODY ENDS HERE -->
 
-	<script src="<c:url value="/assets/js/jquery-3.4.1.min.js" />"></script>
-	<script
-		src="<c:url value="/assets/js/bootstrap-popper-1.16.min.js" />"></script>
-	<script src="<c:url value="/assets/js/bootstrap-4.4.1.min.js" />"></script>
-
-</body>
-</html>
+<jsp:include page="common/footer.jsp" />

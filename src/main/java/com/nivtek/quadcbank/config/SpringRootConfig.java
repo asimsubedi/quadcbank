@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 @Configuration
-@ComponentScan(basePackages = {"com.nivtek"} )
+@ComponentScan(basePackages = {"com.nivtek.quadcbank"} )
 public class SpringRootConfig {
 	
 	// we configure services, daos, datasource etc or some other business layer beans here

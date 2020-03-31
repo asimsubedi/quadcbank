@@ -2,7 +2,6 @@
     <wb-module deploy-name="quadcbank">
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/java"/>
         <property name="context-root" value="quadcbank"/>
         <property name="java-output-path" value="/quadcbank/target/classes"/>
     </wb-module>

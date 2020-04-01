@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nivtek.quadcbank.entity.Address;
 import com.nivtek.quadcbank.entity.Customer;
 import com.nivtek.quadcbank.service.CustomerService;
 
@@ -102,6 +104,63 @@ public class CustomerController {
 		session.invalidate();
 		session = request.getSession(true);
 		return "redirect:login?action=logout";
+
+	}
+
+	/**
+	 * This method is responsible to show the address of loggedIn customer
+	 * 
+	 * @param session
+	 * @return view-address view
+	 */
+	@RequestMapping(value = "user-dashboard/view-address")
+	public String viewCustomerAddress(HttpSession session) {
+
+		if (session.getAttribute("customer") != null) {
+
+			Customer currentCustomer = (Customer) session.getAttribute("customer");
+			int currCustomerId = currentCustomer.getCustomerId();
+
+			Address customerAddress = currentCustomer.getAddress();
+
+			if (customerAddress == null)
+				customerAddress = customerService.getCustomerAddress(currCustomerId);
+
+			currentCustomer.setAddress(customerAddress);
+
+			return "view-address";
+		}
+
+		else
+			return "redirect:login";
+
+	}
+
+	/**
+	 * This method will update the address of customer and return address view with
+	 * update information.
+	 * 
+	 * @param address
+	 * @param session
+	 * @param model
+	 * @return address view with update information
+	 */
+	@RequestMapping(value = "user-dashboard/update-address", method=RequestMethod.POST)
+	public String updateCustomerAddress(@ModelAttribute("address") Address address, HttpSession session, Model model) {
+
+		Customer customer = (Customer) session.getAttribute("customer");
+		
+		int customerId = customer.getCustomerId();
+
+		Address updatedAddress = customerService.updateCustomerAddress(address, customerId);
+
+		// if successfully updated without error
+		if (updatedAddress != null) {
+			customer.setAddress(updatedAddress);
+
+		}
+
+		return "redirect:view-address";
 
 	}
 

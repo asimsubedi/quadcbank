@@ -11,7 +11,8 @@
 					class="list-group-item list-group-item-action">Dashboard</a> <a
 					href="${request.contextPath}/quadcbank/user-dashboard/recent-transactions"
 					class="list-group-item list-group-item-action">Recent
-					Transactions</a> <a href="${request.contextPath}/quadcbank/user-dashboard/view-address"
+					Transactions</a> <a
+					href="${request.contextPath}/quadcbank/user-dashboard/view-address"
 					class="list-group-item list-group-item-action">View Address</a> <a
 					href="${request.contextPath}/quadcbank/user-dashboard/account-details"
 					class="list-group-item list-group-item-action">Account Details</a>
@@ -25,12 +26,12 @@
 		<div class="col-sm-8 col-lg-9">
 			<div class="jumbotron">
 				<h2 class="display-4">Hello, ${customer.firstName}!</h2>
-				<p class="lead">Welcome to your account Dashboard.</p>
+				<p class="lead">Your Account Details is:</p>
 				<hr class="my-4">
 				<p class="lead">
-					<a class="btn btn-primary btn-sm"
-						href="${request.contextPath}/quadcbank/user-dashboard/account-details"
-						role="button"> VIEW ACCOUNT DETAILS &rarr; </a>
+					Account Number: ${customer.account.accountNumber }<br /> Account
+					Type: ${customer.account.accountType }<br /> Current Balance:
+					$${customer.account.balance }
 				</p>
 			</div>
 		</div>

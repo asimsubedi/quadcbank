@@ -3,6 +3,7 @@
  */
 package com.nivtek.quadcbank.service;
 
+import com.nivtek.quadcbank.entity.Address;
 import com.nivtek.quadcbank.entity.Customer;
 
 /**
@@ -20,5 +21,23 @@ public interface CustomerService {
 	 * @return loggedInCustomer
 	 */
 	Customer checkCustomerLogin(String email, String password);
+
+	/**
+	 * This method will return the Address Object of requested customer based on his
+	 * Id.
+	 * 
+	 * @param currCustomerId
+	 * @return Address of Requested Customer based on his Id.
+	 */
+	Address getCustomerAddress(int currCustomerId);
+
+	/**
+	 * This method will update the customer's address and return the updated address
+	 * 
+	 * @param address
+	 * @param customerId 
+	 * @return updatedAddressObject for customer
+	 */
+	Address updateCustomerAddress(Address address, int customerId);
 
 }

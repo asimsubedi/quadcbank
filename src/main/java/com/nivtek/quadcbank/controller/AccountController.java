@@ -45,8 +45,8 @@ public class AccountController {
 
 			if (customerAccount == null)
 				customerAccount = setCustomerAccount(currCustomerId);
+				currentCustomer.setAccount(customerAccount);
 
-			currentCustomer.setAccount(customerAccount);
 
 			return "account-details";
 		}

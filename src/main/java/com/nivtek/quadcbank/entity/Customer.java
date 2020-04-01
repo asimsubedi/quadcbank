@@ -10,7 +10,7 @@ package com.nivtek.quadcbank.entity;
 public class Customer {
 
 	private Integer customerId;
-	private String firstNam;
+	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
@@ -42,15 +42,15 @@ public class Customer {
 	/**
 	 * @return the firstNam
 	 */
-	public String getFirstNam() {
-		return firstNam;
+	public String getFirstName() {
+		return firstName;
 	}
 
 	/**
 	 * @param firstNam the firstNam to set
 	 */
-	public void setFirstNam(String firstNam) {
-		this.firstNam = firstNam;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [customerId=" + customerId + ", firstNam=" + firstNam + ", lastName=" + lastName + ", email="
+		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
 				+ email + ", password=" + password + ", role=" + role + ", loginStatus=" + loginStatus + ", address="
 				+ address + ", account=" + account + "]";
 	}
@@ -166,7 +166,7 @@ public class Customer {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((customerId == null) ? 0 : customerId.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstNam == null) ? 0 : firstNam.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((loginStatus == null) ? 0 : loginStatus.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -203,10 +203,10 @@ public class Customer {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (firstNam == null) {
-			if (other.firstNam != null)
+		if (firstName == null) {
+			if (other.firstName != null)
 				return false;
-		} else if (!firstNam.equals(other.firstNam))
+		} else if (!firstName.equals(other.firstName))
 			return false;
 		if (lastName == null) {
 			if (other.lastName != null)

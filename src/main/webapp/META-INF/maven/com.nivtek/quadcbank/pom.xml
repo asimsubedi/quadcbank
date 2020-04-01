@@ -27,7 +27,7 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -89,7 +89,7 @@
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<!-- JSTL-->
+		<!-- JSTL -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
@@ -106,6 +106,12 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+			<scope>runtime</scope>
 		</dependency>
 
 	</dependencies>

@@ -9,8 +9,8 @@
 			Transactions</a> <a
 			href="${request.contextPath}/quadcbank/user-dashboard/view-address"
 			class="list-group-item list-group-item-action">View Address</a> <a
-			href="" class="list-group-item list-group-item-action disabled"
-			tabindex="-1" aria-disabled="true">Transfer Fund</a> <a
+			href="${request.contextPath}/quadcbank/user-dashboard/fund-transfer"
+			class="list-group-item list-group-item-action">Transfer Fund</a> <a
 			href="${request.contextPath}/quadcbank/logout"
 			class="list-group-item list-group-item-action">Logout</a>
 	</div>

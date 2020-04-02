@@ -32,4 +32,17 @@ public interface AccountDAO {
 	 */
 	List<Transaction> getAccountTransactions(Integer accountId);
 
+	/**
+	 * This method updates the transaction table for sender and receiver. and
+	 * updates the account balance of sender and receiver as well.
+	 * 
+	 * @param senderTransaction
+	 * @param receiverTransaction
+	 * @param senderUpdatedBalance
+	 * @param receiversAccountNum
+	 * @return true if fund transfer success
+	 */
+	boolean transferFund(Transaction senderTransaction, Transaction receiverTransaction, Double senderUpdatedBalance,
+			String receiversAccountNum);
+
 }

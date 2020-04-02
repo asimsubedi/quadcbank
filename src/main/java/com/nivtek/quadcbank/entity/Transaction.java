@@ -17,6 +17,17 @@ public class Transaction {
 
 	public Transaction() {
 	}
+	
+	
+
+	public Transaction(Transaction transaction) {
+		this.amount = transaction.getAmount();
+		this.transactionType = transaction.getTransactionType();
+		this.remarks = transaction.getRemarks();
+		this.transactionDate = transaction.getTransactionDate();
+	}
+
+
 
 	/**
 	 * @return the transactionId

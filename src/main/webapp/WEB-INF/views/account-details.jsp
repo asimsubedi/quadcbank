@@ -8,6 +8,11 @@
 		<%@include file="common/admin-sidemenu.jsp"%>
 		
 		<div class="col-sm-8 col-lg-9">
+			<c:if test="${param.transfer eq 'success'}">
+                <div class="alert alert-primary">
+					<strong>Fund Transfer Success!!!</strong>
+				</div>
+            </c:if>
 			<div class="jumbotron">
 				<h2 class="display-4">Hello, ${customer.firstName}!</h2>
 				<p class="lead">Your Account Details is:</p>

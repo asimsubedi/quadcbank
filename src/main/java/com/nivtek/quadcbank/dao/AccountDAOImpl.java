@@ -26,6 +26,12 @@ public class AccountDAOImpl implements AccountDAO {
 
 	private final String QUERY_TRANSACTIONS = "SELECT * FROM quadcbank.transaction WHERE accountId = ? ORDER BY transactionDate DESC";
 
+	private final String QUERY_CUSTOMER_ACCOUNT = "SELECT * FROM quadcbank.account WHERE accountNumber=?";
+
+	private final String INSERT_IN_TRANSACTION = "INSERT INTO quadcbank.transaction (amount, transactionType, remarks, transactionDate, accountId) VALUES (?,?,?,?,?)";
+
+	private final String UPDATE_AMOUNT_IN_ACCOUNT = "UPDATE quadcbank.account SET balance=? WHERE accountId=?";
+
 	/**
 	 * This method is returning the Account Object for Requested Customer using his
 	 * CustomerId
@@ -45,7 +51,6 @@ public class AccountDAOImpl implements AccountDAO {
 			accountFromDB.setAccountType(resultSet.getString("accountType"));
 
 			return accountFromDB;
-
 		});
 
 		return account;
@@ -61,19 +66,83 @@ public class AccountDAOImpl implements AccountDAO {
 				(resultSet, rowNum) -> {
 
 					Transaction transaction = new Transaction();
-					
+
 					transaction.setTransactionId(resultSet.getInt("transactionId"));
 					transaction.setAmount(resultSet.getDouble("amount"));
 					transaction.setTransactionType(resultSet.getString("transactionType"));
 					transaction.setRemarks(resultSet.getString("remarks"));
 					transaction.setTransactionDate(resultSet.getDate("transactionDate"));
-					
-					return transaction;
 
+					return transaction;
 				});
 
 		return transactions;
 
+	}
+
+	/**
+	 * This method inserts transaction Data for sender and receiver and updates the
+	 * balance in account table for both sender and receiver as well.
+	 */
+	@Override
+	public boolean transferFund(Transaction senderTransaction, Transaction receiverTransaction,
+			Double senderUpdatedBalance, String receiversAccountNum) {
+
+		Object[] senderParams = new Object[] { senderTransaction.getAmount(), senderTransaction.getTransactionType(),
+				senderTransaction.getRemarks(), senderTransaction.getTransactionDate(),
+				senderTransaction.getTransactionId() };
+
+		int insertInTransaction = jdbcTemplate.update(INSERT_IN_TRANSACTION, senderParams); // This will update
+																							// transaction Table for
+																							// sender
+		System.out.println("=1=INSERT In TRANSACTION: " + insertInTransaction);
+
+		int updateSenderAccount = jdbcTemplate.update(UPDATE_AMOUNT_IN_ACCOUNT,
+				new Object[] { senderUpdatedBalance, senderTransaction.getTransactionId() });// update sender's account
+																								// balance
+		System.out.println("=2== UPDATE AMOUNT FOR SENDER SUCCESS: " + updateSenderAccount);
+
+		// Get Receiver's Account Details
+		Account receiversAccount = jdbcTemplate.queryForObject(QUERY_CUSTOMER_ACCOUNT,
+				new Object[] { receiversAccountNum }, (resultSet, rowNum) -> {
+					Account accountFromDb = new Account();
+
+					accountFromDb.setAccountId(resultSet.getInt("accountId"));
+					accountFromDb.setAccountNumber(receiversAccountNum);
+					accountFromDb.setBalance(resultSet.getDouble("balance"));
+					accountFromDb.setAccountType(resultSet.getString("accountType"));
+
+					return accountFromDb;
+
+				});
+
+		System.out.println("=3== RECEIVERS ACCOUNT BEFORE: " + receiversAccount);
+
+		Object[] receiverParam = new Object[] { receiverTransaction.getAmount(),
+				receiverTransaction.getTransactionType(), receiverTransaction.getRemarks(),
+				receiverTransaction.getTransactionDate(), receiversAccount.getAccountId() };
+
+		int insertInReceiverTransaction = jdbcTemplate.update(INSERT_IN_TRANSACTION, receiverParam);// update receiver's
+																									// transaction table
+
+		System.out.println("=4===Insert into Receiver Transaction: " + insertInReceiverTransaction);
+
+		Double receiversNewBalance = receiversAccount.getBalance() + receiverTransaction.getAmount();
+
+		int updateReceiversAccount = jdbcTemplate.update(UPDATE_AMOUNT_IN_ACCOUNT,
+				new Object[] { receiversNewBalance, receiversAccount.getAccountId() });// update receiver's account
+																						// balance
+
+		System.out.println("=5===UpdateReceiversAccount: " + updateReceiversAccount);
+
+		int totalDbSuccess = insertInTransaction + updateSenderAccount + insertInReceiverTransaction
+				+ updateReceiversAccount;
+
+		if (totalDbSuccess == 4)
+			return true;
+
+		else
+			return false;
 	}
 
 }

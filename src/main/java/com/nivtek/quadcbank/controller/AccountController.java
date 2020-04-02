@@ -5,10 +5,15 @@ package com.nivtek.quadcbank.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nivtek.quadcbank.entity.Account;
@@ -45,8 +50,7 @@ public class AccountController {
 
 			if (customerAccount == null)
 				customerAccount = setCustomerAccount(currCustomerId);
-				currentCustomer.setAccount(customerAccount);
-
+			currentCustomer.setAccount(customerAccount);
 
 			return "account-details";
 		}
@@ -91,6 +95,43 @@ public class AccountController {
 
 		else
 			return "redirect:login";
+
+	}
+
+	@GetMapping(value = "/user-dashboard/fund-transfer")
+	public String showFundTransferForm(HttpSession session) {
+
+		if (session.getAttribute("customer") != null) {
+
+			return "fund-transfer-form";
+
+		} else
+			return "redirect:login";
+
+	}
+
+	@PostMapping(value = "/user-dashboard/fund-transfer-confirm")
+	public String transferFund(@ModelAttribute("transaction") Transaction transaction, HttpServletRequest request,
+			HttpSession session, Model model) {
+
+		Customer currentCustomer = (Customer) session.getAttribute("customer");
+		System.out.println("===FUND TRANSFER DATA\n" + transaction + "\n" + currentCustomer);
+
+		java.sql.Date transferDate = new java.sql.Date(new java.util.Date().getTime()); // getting current date
+		final String accountNumber = request.getParameter("accountNumber");// getting receiver's account Number
+
+		transaction.setTransactionDate(transferDate);
+
+		boolean isTransferSuccess = accountService.transferFund(currentCustomer, accountNumber, transaction);
+
+		if (isTransferSuccess) {
+			model.addAttribute("transfer", "success");
+			currentCustomer.setAccount(setCustomerAccount(currentCustomer.getCustomerId()));
+			return "redirect:account-details";
+
+		} else
+			model.addAttribute("transfer", "failure");
+			return "redirect:fund-transfer";
 
 	}
 

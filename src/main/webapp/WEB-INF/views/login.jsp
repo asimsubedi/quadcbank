@@ -4,7 +4,7 @@
 <!-- BODY STARTS HERE -->
 <div class="container" style="margin-top: 40px">
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-md-4 col-sm-8">
 		
 			<c:if test="${errorMsg != null}">
 				<div class="alert alert-warning">

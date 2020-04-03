@@ -115,10 +115,9 @@ public class AccountController {
 			HttpSession session, Model model) {
 
 		Customer currentCustomer = (Customer) session.getAttribute("customer");
-		System.out.println("===FUND TRANSFER DATA\n" + transaction + "\n" + currentCustomer);
 
-		java.sql.Date transferDate = new java.sql.Date(new java.util.Date().getTime()); // getting current date
-		final String accountNumber = request.getParameter("accountNumber");// getting receiver's account Number
+		java.sql.Date transferDate = new java.sql.Date(new java.util.Date().getTime()); 
+		final String accountNumber = request.getParameter("accountNumber");
 
 		transaction.setTransactionDate(transferDate);
 
